@@ -1,0 +1,71 @@
+{
+  "extends": ["stylelint-config-standard-scss", "stylelint-config-standard-vue/scss"],
+  "plugins": ["stylelint-order", "stylelint-declaration-strict-value"],
+  "rules": {
+    "order/properties-order": [
+      "position",
+      "z-index",
+      "top",
+      "right",
+      "bottom",
+      "left",
+      "display",
+      "flex",
+      "flex-direction",
+      "justify-content",
+      "align-items",
+      "gap",
+      "grid",
+      "margin",
+      "padding",
+      "width",
+      "min-width",
+      "max-width",
+      "height",
+      "min-height",
+      "max-height",
+      "background",
+      "background-color",
+      "border",
+      "border-radius",
+      "backdrop-filter",
+      "color",
+      "font-family",
+      "font-size",
+      "font-weight",
+      "line-height",
+      "text-align",
+      "opacity",
+      "visibility",
+      "transition"
+    ],
+    "selector-class-pattern": null,
+    "no-descending-specificity": null,
+    "scale-unlimited/declaration-strict-value": [
+      ["/color/", "background-color", "border-color"],
+      {
+        "ignoreValues": ["transparent", "inherit", "currentColor", "none"],
+        "message": "Only vars!"
+      }
+    ],
+    "selector-pseudo-class-no-unknown": [
+      true,
+      {
+        "ignorePseudoClasses": ["deep", "global", "slotted"]
+      }
+    ],
+    "function-no-unknown": [
+      true,
+      {
+        "ignoreFunctions": ["v-bind"]
+      }
+    ],
+    "scss/at-rule-no-unknown": [
+      true,
+      {
+        "ignoreAtRules": ["use", "forward", "mixin", "include", "extend"]
+      }
+    ],
+    "at-rule-no-unknown": null
+  }
+}

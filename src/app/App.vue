@@ -9,6 +9,8 @@
 
 <style scoped lang="scss">
 .body {
+  display: flex;
+  margin: 10px;
   background-color: var(--wine-100);
 }
 </style>
