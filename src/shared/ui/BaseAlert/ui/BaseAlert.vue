@@ -2,34 +2,42 @@
 import { Dialog } from 'primevue';
 import type { BaseAlertTypes } from '../models';
 
-const props = defineProps<BaseAlertTypes.Props>();
-const { isVisible, message, title, themeValue = 'default' } = props;
-console.log('props', props);
+const { isVisible, themeValue = 'default' } = defineProps<BaseAlertTypes.Props>();
 </script>
 
 <template>
   <Dialog
     class="baseDialog"
-    :class="`${themeValue}Theme`"
     position="bottom"
+    :class="`${themeValue}Theme`"
     :visible="isVisible"
     :draggable="false"
     :closable="false"
   >
-    <h4 class="title">{{ title }}</h4>
-    <p class="message">{{ message }}</p>
+    <h4 class="title">
+      <slot name="title"></slot>
+    </h4>
+    <p class="message">
+      <slot name="message"></slot>
+    </p>
   </Dialog>
 </template>
 
-<style lang="scss" scoped>
+<style lang="scss">
 .baseDialog {
-  &.errorTheme {
-    background-color: var(--wine-50);
-    color: var(--white-100);
+  border: none;
+  color: var(--white-100);
+  box-shadow:
+    -10px 0 13px -7px var(--black-100),
+    10px 0 13px -7px var(--black-100),
+    5px 5px 15px 5px var(--black-100);
 
-    :deep(.p-dialog-content) {
-      background-color: var(--wine-50);
-    }
+  &.defaultTheme {
+    background-color: var(--wine-150);
+  }
+
+  &.errorTheme {
+    background-color: var(--wine-100);
   }
 }
 </style>

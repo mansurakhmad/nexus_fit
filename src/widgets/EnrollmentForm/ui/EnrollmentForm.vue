@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import { sendEnrollmentRequest } from '@/features/enrollment';
 import { APP_ROUTES } from '@/shared/config';
-import { BaseAlert, BaseButton, BaseInput } from '@/shared/ui';
+import { BaseAlert, type BaseAlertTypes, BaseButton, BaseInput } from '@/shared/ui';
 import { ref } from 'vue';
 import { useRouter } from 'vue-router';
 
@@ -10,7 +10,7 @@ const router = useRouter();
 const email = ref();
 const password = ref();
 const confirmPassword = ref();
-const showSuccessAlert = ref(true);
+const successAlertData = ref<BaseAlertTypes.Messages>();
 
 const onBackClick = () => router.back();
 
@@ -22,14 +22,17 @@ const submitForm = async () => {
   try {
     await sendEnrollmentRequest({ email: email.value, password: password.value });
 
+    successAlertData.value = {
+      title: 'Registration was successful!',
+      message: `Check your email: ${email.value}`,
+    };
+
     email.value = '';
     password.value = '';
     confirmPassword.value = '';
 
-    showSuccessAlert.value = true;
-
     setTimeout(() => {
-      showSuccessAlert.value = false;
+      successAlertData.value = undefined;
 
       router.push(APP_ROUTES.lOGIN);
     }, 5000);
@@ -47,19 +50,17 @@ const submitForm = async () => {
     <BaseButton value="Create Account" class="button" type="submit" />
     <BaseButton value="Back" class="button" theme="secondary" @onClick="onBackClick" />
   </form>
-  <BaseAlert
-    :isVisible="showSuccessAlert"
-    title="Successful registration"
-    message="Check your email"
-    :themeValue="'error'"
-  />
+  <BaseAlert v-if="successAlertData" :isVisible="!!successAlertData">
+    <template v-slot:title>{{ successAlertData?.title }}</template>
+    <template v-slot:message>{{ successAlertData?.message }}</template>
+  </BaseAlert>
 </template>
 
 <style lang="scss" scoped>
 .enrollmentForm {
   display: flex;
   flex-direction: column;
-  gap: 26px;
+  gap: 32px;
   padding: 32px 12px;
   width: 100%;
   max-width: 400px;
