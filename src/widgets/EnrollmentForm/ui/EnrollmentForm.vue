@@ -24,8 +24,6 @@ const submitButtonDisabled = computed(() => {
   return !email.value || !password.value || !confirmPassword.value;
 });
 
-console.log('submitButtonDisabled', submitButtonDisabled);
-
 watch(passwordValuesAreEqual, () => {
   if (!passwordValuesAreEqual.value) {
     triggerAlert({
