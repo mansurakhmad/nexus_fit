@@ -4,12 +4,13 @@ import FloatLabel from 'primevue/floatlabel';
 import type { BaseInputTypes } from '../models';
 
 const { labelValue, isValid, errorMessage } = defineProps<BaseInputTypes.Props>();
+const emit = defineEmits(['blur']);
 const model = defineModel<string>();
 </script>
 
 <template>
   <FloatLabel class="baseInput">
-    <InputText v-model="model" class="input" />
+    <InputText v-model="model" class="input" @blur="emit('blur')" :invalid="!isValid" />
     <label>{{ labelValue }}</label>
     <template v-if="!isValid && errorMessage">
       <div class="errorMessage">{{ errorMessage }}</div>

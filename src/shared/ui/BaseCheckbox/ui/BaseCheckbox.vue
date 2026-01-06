@@ -3,11 +3,12 @@ import type { BaseCheckboxTypes } from '../models';
 import { Checkbox } from 'primevue';
 
 const { label, inputIdValue } = defineProps<BaseCheckboxTypes.Props>();
+const checked = defineModel<boolean>();
 </script>
 
 <template>
   <div class="baseCheckbox">
-    <Checkbox binary :inputId="inputIdValue" :name="inputIdValue" />
+    <Checkbox binary :inputId="inputIdValue" :name="inputIdValue" v-model="checked" />
     <label :for="inputIdValue" class="label">{{ label }}</label>
   </div>
 </template>

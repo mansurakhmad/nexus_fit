@@ -5,9 +5,13 @@ export enum APP_ROUTERS_NAMES {
   MAIN = 'MAIN',
 }
 
-export const APP_ROUTES = {
+export const APP_ROUTES: Record<APP_ROUTERS_NAMES, string> = {
   [APP_ROUTERS_NAMES.lOGIN]: '/',
   [APP_ROUTERS_NAMES.ENROLLMENT]: '/enrollment',
   [APP_ROUTERS_NAMES.CONFIRM]: '/confirm',
   [APP_ROUTERS_NAMES.MAIN]: '/main',
-} as const;
+};
+
+export const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+export const KEEP_USER_LOGIN = 'KEEP_USER_LOGIN';
