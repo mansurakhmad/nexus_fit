@@ -3,8 +3,9 @@ import { sendEnrollmentRequest } from '@/features/enrollment';
 import { BaseAlert, BaseButton, BaseInput, PasswordField, useAlert } from '@/shared/ui';
 import { testPattern } from '@/shared/utils';
 import { computed, ref } from 'vue';
-import { EMAIL_REGEX, PASSWORD_REGEX } from '../config';
+import { PASSWORD_REGEX } from '../config';
 import { AuthError } from '@supabase/supabase-js';
+import { EMAIL_REGEX } from '@/shared/config';
 
 const email = ref('');
 const password = ref('');

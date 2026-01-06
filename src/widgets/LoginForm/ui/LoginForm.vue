@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { sendLoginRequest } from '@/features/login';
-import { APP_ROUTES } from '@/shared/config';
+import { APP_ROUTES, EMAIL_REGEX, KEEP_USER_LOGIN } from '@/shared/config';
 import {
   BaseAlert,
   BaseButton,
@@ -9,23 +9,46 @@ import {
   PasswordField,
   useAlert,
 } from '@/shared/ui';
+import { testPattern } from '@/shared/utils';
 import { AuthError } from '@supabase/supabase-js';
-import { ref } from 'vue';
+import { computed, ref, watch } from 'vue';
 import { useRouter } from 'vue-router';
 
 const router = useRouter();
 const email = ref('');
 const password = ref('');
+const emailIsValid = ref(true);
+const rememberMeIsActive = ref(false);
 const { alertData, triggerAlert } = useAlert();
 
-const onEnrollmentClick = () => {
-  router.push(APP_ROUTES.ENROLLMENT);
-};
+watch(rememberMeIsActive, newValue => {
+  localStorage.setItem(KEEP_USER_LOGIN, JSON.stringify(newValue));
+});
+
+const isSubmitDisable = computed(() => !email.value || !password.value);
+
+const onEnrollmentClick = () => router.push(APP_ROUTES.ENROLLMENT);
+
+const handleEmailInputBlur = () => (emailIsValid.value = true);
 
 const onSubmit = async () => {
+  if (!testPattern(email.value, EMAIL_REGEX)) {
+    triggerAlert({
+      title: 'Invalid Email',
+      message: 'Invalid format',
+      theme: 'error',
+      closeTime: 5000,
+    });
+
+    emailIsValid.value = false;
+
+    return;
+  }
+
   try {
-    const response = await sendLoginRequest({ email: email.value, password: password.value });
-    console.log('response', response);
+    await sendLoginRequest({ email: email.value, password: password.value });
+
+    router.replace(APP_ROUTES.MAIN);
   } catch (error) {
     if (error instanceof AuthError) {
       triggerAlert({
@@ -49,11 +72,16 @@ const onSubmit = async () => {
 <template>
   <form class="loginForm" @submit.prevent="onSubmit">
     <div class="fields">
-      <BaseInput labelValue="Email" v-model="email" />
+      <BaseInput
+        labelValue="Email"
+        v-model="email"
+        :isValid="emailIsValid"
+        @blur="handleEmailInputBlur"
+      />
       <PasswordField labelValue="Password" v-model="password" :isValid="true" />
-      <BaseCheckbox :label="'Remember Me'" inputIdValue="rememberMe" />
+      <BaseCheckbox :label="'Remember Me'" inputIdValue="rememberMe" v-model="rememberMeIsActive" />
     </div>
-    <BaseButton value="Login" theme="accent" type="submit" />
+    <BaseButton value="Login" theme="accent" type="submit" :disabled="isSubmitDisable" />
     <BaseButton value="Create Account" theme="secondary" @onClick="onEnrollmentClick" />
     <BaseButton value="Forgot Account" theme="secondary" />
   </form>

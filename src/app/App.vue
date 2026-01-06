@@ -1,9 +1,10 @@
 <script setup lang="ts">
-import { APP_ROUTERS_NAMES } from '@/shared/config';
+import { api } from '@/shared/api';
+import { APP_ROUTERS_NAMES, APP_ROUTES, KEEP_USER_LOGIN } from '@/shared/config';
 import { ContentContainer, HeaderApp } from '@/widgets';
-import { computed } from 'vue';
-import { RouterView, useRoute } from 'vue-router';
-
+import { computed, onMounted } from 'vue';
+import { RouterView, useRoute, useRouter } from 'vue-router';
+const router = useRouter();
 const route = useRoute();
 
 const routesWithSmallContainer = [APP_ROUTERS_NAMES.lOGIN, APP_ROUTERS_NAMES.ENROLLMENT];
@@ -12,6 +13,16 @@ const sizeValue = computed(() => {
   if (routesWithSmallContainer.includes(route.name as APP_ROUTERS_NAMES)) return 'small';
 
   return 'normal';
+});
+
+onMounted(() => {
+  api.auth.onAuthStateChange((event, session) => {
+    if (event === 'SIGNED_OUT' || (event === 'TOKEN_REFRESHED' && !session) || !session) {
+      router.replace(APP_ROUTES.lOGIN);
+
+      localStorage.removeItem(KEEP_USER_LOGIN);
+    }
+  });
 });
 </script>
 
