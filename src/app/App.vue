@@ -12,6 +12,7 @@ const routesWithSmallContainer = [
   APP_ROUTERS_NAMES.ENROLLMENT,
   APP_ROUTERS_NAMES.FORGOT_PASSWORD,
   APP_ROUTERS_NAMES.CONFIRM,
+  APP_ROUTERS_NAMES.RECOVERY_PASSWORD,
 ];
 
 const sizeValue = computed(() => {
@@ -23,6 +24,7 @@ const sizeValue = computed(() => {
 onMounted(() => {
   api.auth.onAuthStateChange((event, session) => {
     if (event === 'SIGNED_OUT' || (event === 'TOKEN_REFRESHED' && !session) || !session) {
+      console.log('trigger');
       router.replace(APP_ROUTES.lOGIN);
 
       localStorage.removeItem(KEEP_USER_LOGIN);

@@ -5,6 +5,7 @@ import { EnrollmentPage } from '@/pages/EnrollmentPage';
 import { ConfirmPage } from '@/pages/ConfirmPage';
 import { MainPage } from '@/pages/MainPage';
 import { ForgotPasswordPage } from '@/pages/ForgotPasswordPage';
+import { RecoveryPasswordPage } from '@/pages/RecoveryPasswordPage';
 
 const routes: RouteRecordRaw[] = [
   { path: APP_ROUTES.lOGIN, component: LoginPage, name: APP_ROUTERS_NAMES.lOGIN },
@@ -15,6 +16,11 @@ const routes: RouteRecordRaw[] = [
     path: APP_ROUTES.FORGOT_PASSWORD,
     component: ForgotPasswordPage,
     name: APP_ROUTERS_NAMES.FORGOT_PASSWORD,
+  },
+  {
+    path: APP_ROUTES.RECOVERY_PASSWORD,
+    component: RecoveryPasswordPage,
+    name: APP_ROUTERS_NAMES.RECOVERY_PASSWORD,
   },
 ];
 
