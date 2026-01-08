@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ForgotPasswordForm } from '@/widgets';
+import { ForgotPasswordForm } from '@/widgets/ForgotPasswordForm';
 import banner from '@/shared/assets/forgotpasswordBanner.jpg';
 </script>
 

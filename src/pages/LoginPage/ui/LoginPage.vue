@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { LoginForm } from '@/widgets';
+import { LoginForm } from '@/widgets/LoginForm';
 import banner from '@/shared/assets/login.jpg';
 </script>
 

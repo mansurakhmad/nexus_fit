@@ -1,7 +1,8 @@
 <script setup lang="ts">
 import { api } from '@/shared/api';
 import { APP_ROUTERS_NAMES, APP_ROUTES, KEEP_USER_LOGIN } from '@/shared/config';
-import { ContentContainer, HeaderApp } from '@/widgets';
+import { ContentContainer } from '@/widgets/ContentContainer';
+import { HeaderApp } from '@/widgets/HeaderApp';
 import { computed, onMounted } from 'vue';
 import { RouterView, useRoute, useRouter } from 'vue-router';
 const router = useRouter();

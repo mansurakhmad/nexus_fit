@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { PASSWORD_REGEX } from '@/shared/config';
+import { APP_ROUTES, PASSWORD_REGEX } from '@/shared/config';
 import { BaseAlert, PasswordField, useAlert } from '@/shared/ui';
 import { BaseButton } from '@/shared/ui';
 import { testPattern } from '@/shared/utils';
@@ -7,9 +7,11 @@ import { computed, ref } from 'vue';
 import RulesList from './RulesList.vue';
 import { sendRestorePasswordRequest } from '@/features/restorePassword';
 import { AuthError } from '@supabase/supabase-js';
+import { useRouter } from 'vue-router';
 
 const password = ref('');
 const confirmPassword = ref('');
+const router = useRouter();
 const { alertData, triggerAlert } = useAlert();
 
 const passwordValuesAreValid = computed(() => {
@@ -28,8 +30,8 @@ const submitButtonIsDisabled = computed(() => {
 
 const submit = async () => {
   try {
-    const user = await sendRestorePasswordRequest(password.value);
-    console.log('user', user);
+    const response = await sendRestorePasswordRequest(password.value);
+    router.replace({ path: APP_ROUTES.lOGIN, query: { email: `${response.user.email}` } });
   } catch (error) {
     if (error instanceof AuthError) {
       triggerAlert({

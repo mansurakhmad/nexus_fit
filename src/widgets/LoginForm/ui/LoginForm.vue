@@ -12,9 +12,10 @@ import {
 import { testPattern } from '@/shared/utils';
 import { AuthError } from '@supabase/supabase-js';
 import { computed, ref, watch } from 'vue';
-import { useRouter } from 'vue-router';
+import { useRouter, useRoute } from 'vue-router';
 
 const router = useRouter();
+const route = useRoute();
 const email = ref('');
 const password = ref('');
 const emailIsValid = ref(true);
@@ -24,6 +25,24 @@ const { alertData, triggerAlert } = useAlert();
 watch(rememberMeIsActive, newValue => {
   localStorage.setItem(KEEP_USER_LOGIN, JSON.stringify(newValue));
 });
+
+watch(
+  () => route.query.email,
+  emailValue => {
+    if (emailValue && !Array.isArray(emailValue)) {
+      email.value = emailValue;
+
+      triggerAlert({
+        title: 'Success!',
+        message: 'Password updated successfully.',
+        closeTime: 4000,
+      });
+
+      router.replace({ query: {} });
+    }
+  },
+  { immediate: true }
+);
 
 const isSubmitDisable = computed(() => !email.value || !password.value);
 
@@ -88,8 +107,8 @@ const onSubmit = async () => {
     <BaseButton value="Forgot Account" theme="secondary" @click="onForgotPasswordClick" />
   </form>
   <BaseAlert v-if="alertData" :isVisible="!!alertData" :themeValue="alertData.theme">
-    <template v-slot:title>{{ alertData?.title }}</template>
-    <template v-slot:message>{{ alertData?.message }}</template>
+    <template #title>{{ alertData?.title }}</template>
+    <template #message>{{ alertData?.message }}</template>
   </BaseAlert>
 </template>
 

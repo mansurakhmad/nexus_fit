@@ -59,12 +59,14 @@ const submit = async () => {
       :isValid="emailIsValid"
       errorMessage="Invalid format"
     />
-    <BaseButton value="Submit" theme="accent" type="submit" :disabled="submitIsDisable" />
-    <BaseButton value="Back" theme="secondary" />
+    <div class="buttons">
+      <BaseButton value="Submit" theme="accent" type="submit" :disabled="submitIsDisable" />
+      <BaseButton value="Back" theme="secondary" @click="router.back()" />
+    </div>
   </form>
   <BaseAlert v-if="alertData" :isVisible="!!alertData" :themeValue="alertData.theme">
-    <template v-slot:title>{{ alertData?.title }}</template>
-    <template v-slot:message>{{ alertData?.message }}</template>
+    <template #:title>{{ alertData?.title }}</template>
+    <template #:message>{{ alertData?.message }}</template>
   </BaseAlert>
 </template>
 
@@ -81,5 +83,11 @@ const submit = async () => {
   border-radius: 12px;
   color: var(--black-100);
   box-shadow: var(--shadow-overlay) 0 20px 30px -10px;
+}
+
+.buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
 }
 </style>

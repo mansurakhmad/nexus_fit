@@ -8,7 +8,6 @@ const router = useRouter();
 
 onMounted(async () => {
   const isConfirmed = await confirmAfterEnrollment();
-  console.log('isConfirmed', isConfirmed);
 
   if (isConfirmed) {
     router.push(APP_ROUTES.MAIN);

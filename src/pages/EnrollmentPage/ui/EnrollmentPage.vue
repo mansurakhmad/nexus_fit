@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { EnrollmentForm } from '@/widgets';
+import { EnrollmentForm } from '@/widgets/EnrollmentForm';
 import banner from '@/shared/assets/enrollment.jpg';
 </script>
 
