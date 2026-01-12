@@ -1,9 +1,9 @@
 <script lang="ts" setup></script>
 
 <template>
-    <header class="header">
-      <h1 class="title">The Way To Olymp</h1>
-    </header>
+  <header class="header">
+    <h1 class="title">Nexus Fit</h1>
+  </header>
 </template>
 
 <style lang="scss" scoped>
