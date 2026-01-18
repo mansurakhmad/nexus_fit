@@ -1,5 +1,10 @@
 <script lang="ts" setup>
 import logo from '@/shared/assets/SmallLogo.svg';
+import { computed } from 'vue';
+import { useRoute } from 'vue-router';
+const route = useRoute();
+
+const isOnboarding = computed(() => route.meta.isOnboarding);
 </script>
 
 <template>
@@ -8,7 +13,8 @@ import logo from '@/shared/assets/SmallLogo.svg';
       <img :src="logo" class="logo" alt="logo" />
       <div>
         <h1 class="title">Nexus</h1>
-        <span class="subTitle">Performance Hub</span>
+        <span class="subTitle" v-if="isOnboarding">Ready to work?</span>
+        <span class="subTitle" v-else>Performance Hub</span>
       </div>
     </div>
   </header>

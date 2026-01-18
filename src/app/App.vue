@@ -32,10 +32,20 @@ const isOnboardingRoute = computed(() => route.meta.isOnboarding);
 
   &.authorized {
     background-image: url('../shared/assets/authorizedBg.jpg');
+
+    .content {
+      padding: 0;
+    }
   }
 
   &.onboarding {
     background-image: url('../shared/assets/onboardingBg.jpg');
+
+    .content {
+      background-color: var(--glass-white);
+      border: 1px solid var(--glass-border);
+      border-radius: 16px;
+    }
   }
 
   .headerApp {
@@ -43,9 +53,6 @@ const isOnboardingRoute = computed(() => route.meta.isOnboarding);
   }
 
   .content {
-    background-color: var(--glass-white);
-    border: 1px solid var(--glass-border);
-    border-radius: 16px;
     margin-top: 40px;
   }
 }
