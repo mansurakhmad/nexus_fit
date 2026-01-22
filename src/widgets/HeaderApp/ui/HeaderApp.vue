@@ -1,7 +1,10 @@
 <script lang="ts" setup>
-import logo from '@/shared/assets/SmallLogo.svg';
 import { computed } from 'vue';
+
 import { useRoute } from 'vue-router';
+
+import logo from '@/shared/assets/SmallLogo.svg';
+
 const route = useRoute();
 
 const isOnboarding = computed(() => route.meta.isOnboarding);

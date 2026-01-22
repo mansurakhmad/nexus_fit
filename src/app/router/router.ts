@@ -1,12 +1,14 @@
 import { createWebHistory, createRouter, type RouteRecordRaw } from 'vue-router';
-import { APP_ROUTERS_NAMES, APP_ROUTES, KEEP_USER_LOGIN } from '@/shared/config';
-import { LoginPage } from '@/pages/LoginPage';
-import { EnrollmentPage } from '@/pages/EnrollmentPage';
+
+import { useAuthStore } from '@/features/user';
 import { ConfirmPage } from '@/pages/ConfirmPage';
-import { MainPage } from '@/pages/MainPage';
+import { EnrollmentPage } from '@/pages/EnrollmentPage';
 import { ForgotPasswordPage } from '@/pages/ForgotPasswordPage';
+import { LoginPage } from '@/pages/LoginPage';
+import { MainPage } from '@/pages/MainPage';
 import { RecoveryPasswordPage } from '@/pages/RecoveryPasswordPage';
 import { api } from '@/shared/api';
+import { APP_ROUTERS_NAMES, APP_ROUTES, KEEP_USER_LOGIN } from '@/shared/config';
 
 const routes: RouteRecordRaw[] = [
   {
@@ -52,7 +54,11 @@ router.beforeEach(async (to, _, next) => {
   const {
     data: { session },
   } = await api.auth.getSession();
+  const authStore = useAuthStore();
+
   const requiresAuth = to.matched.some(record => !record.meta.isOnboarding);
+
+  if (session) authStore.setSession(session);
 
   if (requiresAuth && !session) {
     localStorage.removeItem(KEEP_USER_LOGIN);

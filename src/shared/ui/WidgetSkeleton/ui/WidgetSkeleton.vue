@@ -1,6 +1,7 @@
 <script setup lang="ts">
-import type { WidgetContainerTypes } from '../models';
 import { useAnimationRules } from '../composables';
+
+import type { WidgetContainerTypes } from '../models';
 
 const { theme = 'Gold' } = defineProps<WidgetContainerTypes.Props>();
 

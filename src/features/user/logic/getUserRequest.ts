@@ -1,0 +1,12 @@
+import { api } from '@/shared/api';
+
+export const getUserRequest = async () => {
+  const {
+    data: { user },
+    error,
+  } = await api.auth.getUser();
+
+  if (error) throw error;
+
+  return user;
+};

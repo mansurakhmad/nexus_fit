@@ -1,5 +1,9 @@
 <script setup lang="ts">
+import { useUserProfile } from '@/features/user';
 import { BaseButton, WidgetSkeleton } from '@/shared/ui';
+
+const { data } = useUserProfile();
+console.log(data);
 </script>
 
 <template>

@@ -1,6 +1,9 @@
 <script setup lang="ts">
 import { computed } from 'vue';
+
+import { VueQueryDevtools } from '@tanstack/vue-query-devtools';
 import { RouterView, useRoute } from 'vue-router';
+
 import { ContentContainer } from '@/widgets/ContentContainer';
 import { HeaderApp } from '@/widgets/HeaderApp';
 
@@ -18,6 +21,7 @@ const isOnboardingRoute = computed(() => route.meta.isOnboarding);
       <RouterView />
     </ContentContainer>
   </div>
+  <VueQueryDevtools />
 </template>
 
 <style scoped lang="scss">

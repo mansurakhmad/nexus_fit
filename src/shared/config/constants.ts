@@ -21,3 +21,7 @@ export const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 export const KEEP_USER_LOGIN = 'KEEP_USER_LOGIN';
 
 export const PASSWORD_REGEX = /^(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+{}[\]:;<>,.?~\\/-]).{8,}$/;
+
+export const PINIA_STORES_KEYS = {
+  AUTH: 'auth',
+};
