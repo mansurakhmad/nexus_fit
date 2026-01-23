@@ -1,5 +1,11 @@
 <script setup lang="ts">
-import { sendLoginRequest } from '@/features/login';
+import { computed, ref, watch } from 'vue';
+
+import { AuthError } from '@supabase/supabase-js';
+import Dialog from 'primevue/dialog';
+import { useRouter, useRoute } from 'vue-router';
+
+import { useLoginMutation } from '@/features/login';
 import { APP_ROUTES, EMAIL_REGEX, KEEP_USER_LOGIN } from '@/shared/config';
 import {
   BaseAlert,
@@ -10,10 +16,6 @@ import {
   useAlert,
 } from '@/shared/ui';
 import { testPattern } from '@/shared/utils';
-import { AuthError } from '@supabase/supabase-js';
-import { computed, ref, watch } from 'vue';
-import { useRouter, useRoute } from 'vue-router';
-import Dialog from 'primevue/dialog';
 
 const router = useRouter();
 const route = useRoute();
@@ -21,11 +23,29 @@ const email = ref('');
 const password = ref('');
 const emailIsValid = ref(true);
 const rememberMeIsActive = ref(false);
-const loading = ref(false);
+const { mutate, isPending, error } = useLoginMutation();
 const { alertData, triggerAlert } = useAlert();
 
 watch(rememberMeIsActive, newValue => {
   localStorage.setItem(KEEP_USER_LOGIN, JSON.stringify(newValue));
+});
+
+watch(error, newErrorData => {
+  if (newErrorData instanceof AuthError) {
+    triggerAlert({
+      title: newErrorData.name,
+      message: newErrorData.message,
+      theme: 'error',
+      closeTime: 5000,
+    });
+  } else {
+    triggerAlert({
+      title: 'Something went wrong',
+      message: 'Check logs',
+      theme: 'error',
+      closeTime: 5000,
+    });
+  }
 });
 
 watch(
@@ -48,13 +68,7 @@ watch(
 
 const isSubmitDisable = computed(() => !email.value || !password.value);
 
-const onEnrollmentClick = () => router.push(APP_ROUTES.ENROLLMENT);
-
-const onForgotPasswordClick = () => router.push(APP_ROUTES.FORGOT_PASSWORD);
-
-const handleEmailInputBlur = () => (emailIsValid.value = true);
-
-const onSubmit = async () => {
+const onSubmit = () => {
   if (!testPattern(email.value, EMAIL_REGEX)) {
     triggerAlert({
       title: 'Invalid Email',
@@ -64,35 +78,10 @@ const onSubmit = async () => {
     });
 
     emailIsValid.value = false;
-
     return;
   }
 
-  try {
-    loading.value = true;
-
-    await sendLoginRequest({ email: email.value, password: password.value });
-
-    router.replace(APP_ROUTES.MAIN);
-  } catch (error) {
-    if (error instanceof AuthError) {
-      triggerAlert({
-        title: error.name,
-        message: error.message,
-        theme: 'error',
-        closeTime: 5000,
-      });
-    } else {
-      triggerAlert({
-        title: 'Something went wrong',
-        message: 'Check logs',
-        theme: 'error',
-        closeTime: 5000,
-      });
-    }
-  } finally {
-    loading.value = false;
-  }
+  mutate({ email: email.value, password: password.value });
 };
 </script>
 
@@ -103,14 +92,22 @@ const onSubmit = async () => {
         labelValue="Email"
         v-model="email"
         :isValid="emailIsValid"
-        @blur="handleEmailInputBlur"
+        @blur="emailIsValid = true"
       />
       <PasswordField labelValue="Password" v-model="password" :isValid="true" />
       <BaseCheckbox :label="'Remember Me'" inputIdValue="rememberMe" v-model="rememberMeIsActive" />
     </div>
     <BaseButton value="Login" theme="accent" type="submit" :disabled="isSubmitDisable" />
-    <BaseButton value="Create Account" theme="secondary" @onClick="onEnrollmentClick" />
-    <BaseButton value="Forgot Password" theme="secondary" @click="onForgotPasswordClick" />
+    <BaseButton
+      value="Create Account"
+      theme="secondary"
+      @onClick="$router.push(APP_ROUTES.ENROLLMENT)"
+    />
+    <BaseButton
+      value="Forgot Password"
+      theme="secondary"
+      @click="$router.push(APP_ROUTES.FORGOT_PASSWORD)"
+    />
   </form>
   <BaseAlert v-if="alertData" :isVisible="!!alertData" :themeValue="alertData.theme">
     <template #title>{{ alertData?.title }}</template>
@@ -119,8 +116,8 @@ const onSubmit = async () => {
   <Dialog
     modal
     :closable="false"
-    v-model:visible="loading"
-    style="background-color: transparent; border: none;"
+    v-model:visible="isPending"
+    style="background-color: transparent; border: none"
   >
     <span class="loader"></span>
   </Dialog>
@@ -171,8 +168,12 @@ const onSubmit = async () => {
 }
 
 @keyframes rotation {
-  0% { transform: rotate(0deg) }
-  100% { transform: rotate(360deg)}
-}
+  0% {
+    transform: rotate(0deg);
+  }
 
+  100% {
+    transform: rotate(360deg);
+  }
+}
 </style>
