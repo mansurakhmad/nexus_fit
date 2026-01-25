@@ -15,7 +15,7 @@ export const useForgotPassword = (emailRef: Ref<string>) => {
     mutationFn: () => sendForgotPasswordRequest(emailRef.value),
     onSuccess: () => {
       triggerAlert({
-        title: `Check ${emailRef.value} address`,
+        title: `Success! Check ${emailRef.value} address`,
         message: `If you don't see the email within a few minutes, please check your spam folder.`,
         closeTime: 5000,
         onClose: () => router.replace(APP_ROUTES.lOGIN),

@@ -40,7 +40,15 @@ watch(
         triggerAlert({
           title: 'Success!',
           message: 'Password updated successfully.',
-          closeTime: 4000,
+          closeTime: 5000,
+        });
+      }
+
+      if (routeData.from === APP_ROUTERS_NAMES.CONFIRM) {
+        triggerAlert({
+          title: 'Success enrollment!',
+          message: 'New account confirmed successfully.',
+          closeTime: 5000,
         });
       }
 

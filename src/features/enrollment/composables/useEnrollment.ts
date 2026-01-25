@@ -31,7 +31,7 @@ export const useEnrollment = (
         title: 'Registration was successful!',
         message: `Check your email: ${data.user?.user_metadata?.email}`,
         theme: 'default',
-        closeTime: 4000,
+        closeTime: 3000,
         onClose: () => {
           router.push({
             path: APP_ROUTES.lOGIN,
