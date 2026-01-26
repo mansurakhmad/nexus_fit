@@ -1,14 +1,12 @@
 <script setup lang="ts">
 import { LoginForm } from '@/widgets/LoginForm';
-import banner from '@/shared/assets/login.jpg';
 </script>
 
 <template>
   <div>
-    <p class="title">Log in to your account</p>
+    <h2 class="title">Log in to your account</h2>
     <div class="content">
       <LoginForm />
-      <img :src="banner" class="banner" alt="banner" />
     </div>
   </div>
 </template>

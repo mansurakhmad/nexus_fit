@@ -1,27 +1,19 @@
 <script setup lang="ts">
 import { ForgotPasswordForm } from '@/widgets/ForgotPasswordForm';
-import banner from '@/shared/assets/forgotpasswordBanner.jpg';
 </script>
 
 <template>
-  <h2>Forgot Password</h2>
-  <div class="content">
+  <div class="forgotPasswordPage">
+    <h2>Forgot Password</h2>
     <ForgotPasswordForm />
-    <img :src="banner" alt="banner" class="banner" />
   </div>
 </template>
 
 <style lang="scss" scoped>
-.content {
-  margin-top: 24px;
+.forgotPasswordPage {
   display: flex;
-  justify-content: space-between;
-}
-
-.banner {
-  width: 400px;
-  border-radius: 16px;
-  opacity: 0.5;
-  object-fit: cover;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
 }
 </style>

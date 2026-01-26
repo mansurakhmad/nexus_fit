@@ -2,3 +2,9 @@
 @import './fonts.css';
 @import './reset.css';
 @import 'primeicons/primeicons.css';
+
+h2 {
+  font-size: 24px;
+  font-weight: 500;
+  line-height: 30px;
+}

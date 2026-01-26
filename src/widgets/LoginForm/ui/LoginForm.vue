@@ -130,10 +130,8 @@ const onSubmit = () => {
   padding: 32px 12px;
   width: 100%;
   max-width: 400px;
-  background-color: var(--glass-white);
   border-radius: 12px;
   color: var(--black-100);
-  box-shadow: var(--shadow-overlay) 0 20px 30px -10px;
 
   .fields {
     display: flex;

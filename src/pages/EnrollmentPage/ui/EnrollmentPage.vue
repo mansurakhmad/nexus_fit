@@ -1,27 +1,19 @@
 <script setup lang="ts">
 import { EnrollmentForm } from '@/widgets/EnrollmentForm';
-import banner from '@/shared/assets/enrollment.jpg';
 </script>
 
 <template>
-  <h2>Create Account</h2>
-  <div class="content">
+  <div class="enrollmentPage">
+    <h2>Create Account</h2>
     <EnrollmentForm />
-    <img :src="banner" alt="banner" class="banner" />
   </div>
 </template>
 
 <style lang="scss" scoped>
-.content {
-  margin-top: 24px;
+.enrollmentPage {
   display: flex;
-  justify-content: space-between;
-}
-
-.banner {
-  width: 400px;
-  border-radius: 16px;
-  opacity: 0.75;
-  object-fit: cover;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
 }
 </style>

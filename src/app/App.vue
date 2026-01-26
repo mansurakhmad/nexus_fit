@@ -4,6 +4,7 @@ import { computed } from 'vue';
 import { VueQueryDevtools } from '@tanstack/vue-query-devtools';
 import { RouterView, useRoute } from 'vue-router';
 
+import planet from '@/shared/assets/plannet.svg';
 import { ContentContainer } from '@/widgets/ContentContainer';
 import { HeaderApp } from '@/widgets/HeaderApp';
 
@@ -14,10 +15,15 @@ const isOnboardingRoute = computed(() => route.meta.isOnboarding);
 
 <template>
   <div class="app" :class="isOnboardingRoute ? 'onboarding' : 'authorized'">
+    <img :src="planet" alt="planner" class="planet" />
     <ContentContainer class="headerApp" :sizeValue="isOnboardingRoute ? 'small' : 'normal'">
       <HeaderApp class="header" />
     </ContentContainer>
-    <ContentContainer class="content" :sizeValue="isOnboardingRoute ? 'small' : 'normal'">
+    <ContentContainer
+      class="content"
+      :class="isOnboardingRoute ? 'onboarding' : ''"
+      :sizeValue="isOnboardingRoute ? 'small' : 'normal'"
+    >
       <RouterView />
     </ContentContainer>
   </div>
@@ -26,38 +32,51 @@ const isOnboardingRoute = computed(() => route.meta.isOnboarding);
 
 <style scoped lang="scss">
 .app {
+  position: relative;
   display: flex;
   flex-direction: column;
   padding: 0 8px;
   height: 100vh;
-  background-color: var(--wine-100);
+  background-color: var(--black-150);
+  background-image: url('../shared/assets/test.jpg');
   background-size: cover;
   background-repeat: no-repeat;
+  overflow: hidden;
 
-  &.authorized {
-    background-image: url('../shared/assets/authorizedBg.jpg');
+  .content {
+    display: flex;
+    justify-content: center;
+    padding: 0;
+    margin-top: 40px;
+    text-align: center;
 
-    .content {
-      padding: 0;
-    }
-  }
-
-  &.onboarding {
-    background-image: url('../shared/assets/onboardingBg.jpg');
-
-    .content {
-      background-color: var(--glass-white);
-      border: 1px solid var(--glass-border);
-      border-radius: 16px;
+    &.onboarding > *:first-child {
+      width: 375px;
     }
   }
 
   .headerApp {
     padding: 16px 0 0;
   }
+}
 
-  .content {
-    margin-top: 40px;
+.planet {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 100%;
+  height: 100%;
+  transform: translate(-50%, -50%);
+  animation: rotate-planet 60s linear infinite;
+}
+
+@keyframes rotate-planet {
+  from {
+    transform: translate(-50%, -50%) rotate(0deg);
+  }
+
+  to {
+    transform: translate(-50%, -50%) rotate(360deg);
   }
 }
 </style>
