@@ -38,7 +38,7 @@ const isOnboardingRoute = computed(() => route.meta.isOnboarding);
   padding: 0 8px;
   height: 100vh;
   background-color: var(--black-150);
-  background-image: url('../shared/assets/test.jpg');
+  background-image: url('../shared/assets/bg.jpg');
   background-size: cover;
   background-repeat: no-repeat;
   overflow: hidden;
