@@ -78,7 +78,6 @@ const linesRefs = useAnimationRules();
   }
 
   &.widgetThemeGold {
-    background-color: var(--gold-10-o-15);
     border: 1px solid var(--gold-10);
 
     .line {
@@ -92,7 +91,6 @@ const linesRefs = useAnimationRules();
   }
 
   &.widgetThemeBlue {
-    background-color: var(--cyan-10-o-10);
     border: 1px solid var(--cyan-10-o-50);
 
     .line {
@@ -106,7 +104,6 @@ const linesRefs = useAnimationRules();
   }
 
   &.widgetThemeRed {
-    background-color: var(--wine-10-o-20);
     border: 1px solid var(--wine-10);
 
     .line {

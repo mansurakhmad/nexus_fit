@@ -35,8 +35,9 @@ console.log(data);
 <style lang="scss" scoped>
 .mainPage {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
   gap: 20px;
+  width: 100%;
   height: calc(100vh - 150px);
+  grid-template-columns: repeat(3, 1fr);
 }
 </style>

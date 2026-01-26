@@ -1,27 +1,19 @@
 <script setup lang="ts">
 import { RecoveryPasswordForm } from '@/widgets/RecoveryPasswordForm';
-import banner from '@/shared/assets/recoveryPasswordBanner.png';
 </script>
 
 <template>
-  <h2>Recovery Password</h2>
-  <div class="content">
+  <div class="recoveryPasswordPage">
+    <h2>Recovery Password</h2>
     <RecoveryPasswordForm />
-    <img :src="banner" alt="banner" class="banner" />
   </div>
 </template>
 
 <style lang="scss" scoped>
-.content {
-  margin-top: 24px;
+.recoveryPasswordPage {
   display: flex;
-  justify-content: space-between;
-}
-
-.banner {
-  width: 400px;
-  border-radius: 16px;
-  opacity: 0.7;
-  object-fit: cover;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
 }
 </style>
