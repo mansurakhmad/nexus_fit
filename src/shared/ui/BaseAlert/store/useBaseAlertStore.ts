@@ -1,17 +1,13 @@
-import { readonly } from 'vue';
-
 import { defineStore } from 'pinia';
 
 import { useAlert } from '../composables';
 
 export const useBaseAlertStore = defineStore('alert', () => {
-  const { alertData, triggerAlert } = useAlert();
-
-  const closeAlert = () => (alertData.value = null);
+  const { alertData, closeAlert, triggerAlert } = useAlert();
 
   return {
-    alertData: readonly(alertData),
-    triggerAlert,
+    alertData,
     closeAlert,
+    triggerAlert,
   };
 });
