@@ -44,7 +44,7 @@ const isOnboardingRoute = computed(() => route.meta.isOnboarding);
   display: flex;
   flex-direction: column;
   padding: 0 8px;
-  height: 100vh;
+  min-height: 100vh;
   background-color: var(--black-150);
   background-image: url('../shared/assets/outer-space-background.jpg');
   background-size: cover;

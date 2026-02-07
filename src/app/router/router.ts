@@ -5,6 +5,7 @@ import { EnrollmentPage } from '@/pages/EnrollmentPage';
 import { ForgotPasswordPage } from '@/pages/ForgotPasswordPage';
 import { LoginPage } from '@/pages/LoginPage';
 import { MainPage } from '@/pages/MainPage';
+import { ProfilePage } from '@/pages/ProfilePage';
 import { RecoveryPasswordPage } from '@/pages/RecoveryPasswordPage';
 import { api } from '@/shared/api';
 import { APP_ROUTERS_NAMES, APP_ROUTES, KEEP_USER_LOGIN } from '@/shared/config';
@@ -38,6 +39,11 @@ const routes: RouteRecordRaw[] = [
     component: RecoveryPasswordPage,
     name: APP_ROUTERS_NAMES.RECOVERY_PASSWORD,
     meta: { isOnboarding: true },
+  },
+  {
+    path: APP_ROUTES.PROFILE,
+    component: ProfilePage,
+    name: APP_ROUTERS_NAMES.PROFILE,
   },
 ];
 
