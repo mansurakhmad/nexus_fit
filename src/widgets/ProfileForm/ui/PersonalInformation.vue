@@ -1,18 +1,20 @@
 <script setup lang="ts">
-import { ref } from 'vue';
-
-import { DatePicker, Select } from 'primevue';
+import { Select } from 'primevue';
+import { useField } from 'vee-validate';
 
 import FormSectionTitle from './FormSectionTitle.vue';
 
 import { BaseInput, WidgetSkeleton } from '@/shared/ui';
+import { BaseDatePicker } from '@/shared/ui/BaseDatePicker';
 
 const genderOptions = [
   { name: 'Male', code: 'XY' },
   { name: 'Female', code: 'XX' },
 ];
 
-const date = ref();
+const firstNameField = useField<string>('firstName');
+const lastNameField = useField<string>('lastName');
+const { value: gender } = useField<string>('gender');
 </script>
 
 <template>
@@ -22,21 +24,35 @@ const date = ref();
     </template>
     <template #content>
       <div class="formContent">
-        <BaseInput labelValue="First Name *" :isValid="true" />
-        <BaseInput labelValue="Last Name *" :isValid="true" />
-        <DatePicker
-          v-model="date"
-          dateFormat="dd.mm.yy"
+        <BaseInput
+          labelValue="First Name *"
+          v-model="firstNameField.value.value"
+          :isValid="!firstNameField.errors.value.length"
+          :errorMessage="firstNameField.errorMessage.value"
+        />
+        <BaseInput
+          labelValue="Last Name *"
+          v-model="lastNameField.value.value"
+          :isValid="!lastNameField.errors.value.length"
+          :errorMessage="lastNameField.errorMessage.value"
+          name="lastName"
+        />
+        <BaseDatePicker
+          labelValue="Birthday *"
           placeholder="Enter your birthday *"
-          fluid
+          dateFormat="dd.mm.yy"
+          :onlyPast="true"
         />
         <Select
+          v-model="gender"
           :options="genderOptions"
           :highlightOnSelect="false"
+          :pt="{ label: { style: 'text-align: left' } }"
+          optionValue="code"
           optionLabel="name"
           placeholder="Select a Gender *"
           checkmark
-          :pt="{ label: { style: 'text-align: left' } }"
+          fluid
         />
       </div>
     </template>

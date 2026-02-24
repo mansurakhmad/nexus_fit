@@ -3,6 +3,8 @@ import { FloatLabel, Password } from 'primevue';
 
 import type { PasswordFieldTypes } from '../models';
 
+import { ErrorMessage } from '@/shared/ui/ErrorMessage';
+
 const modelValue = defineModel<string>();
 const { labelValue, isValid, errorMessage } = defineProps<PasswordFieldTypes.Props>();
 </script>
@@ -20,6 +22,7 @@ const { labelValue, isValid, errorMessage } = defineProps<PasswordFieldTypes.Pro
     <template v-if="!isValid && errorMessage">
       <div class="errorMessage">{{ errorMessage }}</div>
     </template>
+    <ErrorMessage v-if="!isValid && errorMessage" :message="errorMessage" />
   </FloatLabel>
 </template>
 
@@ -51,14 +54,6 @@ const { labelValue, isValid, errorMessage } = defineProps<PasswordFieldTypes.Pro
       color: var(--red-50);
       font-weight: 500;
     }
-  }
-
-  .errorMessage {
-    color: var(--red-50);
-    font-size: 14px;
-    font-weight: 500;
-    line-height: 14px;
-    padding-top: 12px;
   }
 }
 </style>

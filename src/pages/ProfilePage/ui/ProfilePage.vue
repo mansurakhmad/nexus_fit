@@ -13,6 +13,7 @@ import { ProfileForm } from '@/widgets/ProfileForm';
 .profilePage {
   display: flex;
   flex-direction: column;
+  align-items: center;
   gap: 44px;
   width: 100%;
   padding-bottom: 64px;

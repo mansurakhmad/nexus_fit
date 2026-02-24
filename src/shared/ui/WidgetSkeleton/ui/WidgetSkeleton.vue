@@ -33,7 +33,7 @@ const linesRefs = useAnimationRules();
 <style lang="scss" scoped>
 .widgetSkeleton {
   position: relative;
-  padding: 24px;
+  padding: 24px 24px 28px;
   min-height: 150px;
   border-radius: 12px;
   overflow: hidden;
