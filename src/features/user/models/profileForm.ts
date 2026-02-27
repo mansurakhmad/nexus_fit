@@ -12,12 +12,13 @@ export const zodSchema = z.object({
 });
 
 export namespace ProfileForm {
+  export type FormValues = z.infer<typeof zodSchema>;
   export type Fields = keyof z.infer<typeof zodSchema>;
-  export type Step = {
+  export interface Step {
     title: string;
     key: string;
     id: number;
     fields: Fields[];
     hasErrors: boolean;
-  };
+  }
 }

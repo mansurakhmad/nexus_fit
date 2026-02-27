@@ -80,6 +80,10 @@ const linesRefs = useAnimationRules();
   &.widgetThemeGold {
     border: 1px solid var(--gold-10);
 
+    &:hover {
+      background: var(--gold-10-o-10);
+    }
+
     .line {
       background: var(--gold-10-o-10);
       box-shadow:
@@ -93,6 +97,10 @@ const linesRefs = useAnimationRules();
   &.widgetThemeBlue {
     border: 1px solid var(--cyan-10-o-50);
 
+    &:hover {
+      background: var(--cyan-10-o-10);
+    }
+
     .line {
       background: var(--cyan-50);
       box-shadow:
@@ -105,6 +113,10 @@ const linesRefs = useAnimationRules();
 
   &.widgetThemeRed {
     border: 1px solid var(--wine-10);
+
+    &:hover {
+      background: var(--red-10-o-10);
+    }
 
     .line {
       background: var(--wine-100);

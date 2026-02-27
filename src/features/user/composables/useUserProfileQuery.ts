@@ -3,7 +3,7 @@ import { useQuery } from '@tanstack/vue-query';
 import { useAuthStore } from './useAuthStore';
 import { getUserRequest } from '../logic';
 
-export const useUserProfile = () => {
+export const useUserProfileQuery = () => {
   const authStore = useAuthStore();
 
   return useQuery({

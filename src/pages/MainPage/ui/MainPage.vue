@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import { useUserProfile } from '@/features/user';
+import { useUserProfileQuery } from '@/features/user';
 import { BaseButton, WidgetSkeleton } from '@/shared/ui';
 
-const { data } = useUserProfile();
+const { data } = useUserProfileQuery();
 console.log(data);
 </script>
 

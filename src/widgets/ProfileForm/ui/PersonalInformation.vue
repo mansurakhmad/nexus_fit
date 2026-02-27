@@ -25,20 +25,20 @@ const { value: gender } = useField<string>('gender');
     <template #content>
       <div class="formContent">
         <BaseInput
-          labelValue="First Name *"
+          labelValue="First Name"
           v-model="firstNameField.value.value"
           :isValid="!firstNameField.errors.value.length"
           :errorMessage="firstNameField.errorMessage.value"
         />
         <BaseInput
-          labelValue="Last Name *"
+          labelValue="Last Name"
           v-model="lastNameField.value.value"
           :isValid="!lastNameField.errors.value.length"
           :errorMessage="lastNameField.errorMessage.value"
           name="lastName"
         />
         <BaseDatePicker
-          labelValue="Birthday *"
+          labelValue="Birthday"
           placeholder="Enter your birthday *"
           dateFormat="dd.mm.yy"
           :onlyPast="true"
@@ -64,5 +64,10 @@ const { value: gender } = useField<string>('gender');
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 40px 16px;
+
+  &:deep(.p-datepicker-input),
+  &:deep(.p-select) {
+    background-color: var(--glass-white);
+  }
 }
 </style>

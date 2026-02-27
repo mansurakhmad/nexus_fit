@@ -49,7 +49,7 @@ const errorMessage = computed(() => {
 
   &:deep(.p-inputnumber-input) {
     width: 100%;
-    background-color: transparent;
+    background-color: var(--glass-white);
   }
 
   .fields {

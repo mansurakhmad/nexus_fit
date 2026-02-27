@@ -3,18 +3,17 @@ import ContactInformation from './ContactInformation.vue';
 import PersonalInformation from './PersonalInformation.vue';
 import UserInformation from './UserInformation.vue';
 
-import { useProfileForm } from '@/features/user';
+import { useProfileForm, useUpdateProfileMutation, useUserProfileQuery } from '@/features/user';
 import { BaseButton } from '@/shared/ui';
+const { data } = useUserProfileQuery();
+console.log('profile on Profile Page', data);
 
 const { handleSubmit, handleFormValid, steps, changeStep, currentStep } = useProfileForm();
+const { mutate } = useUpdateProfileMutation();
 
 const onSubmit = handleSubmit(
-  values => {
-    console.log('Данные всей формы:', values);
-  },
-  errors => {
-    console.log('Errors:', errors);
-  }
+  values => mutate(values),
+  errors => console.log('onSubmit errors:', errors)
 );
 </script>
 
@@ -40,7 +39,7 @@ const onSubmit = handleSubmit(
     <PersonalInformation v-show="currentStep === 1" />
     <ContactInformation v-show="currentStep === 2" />
     <UserInformation v-show="currentStep === 3" />
-    <div class="stepButtons">
+    <div class="stepButtons" :class="currentStep === 1 && 'firstStep'">
       <BaseButton
         value="Prev"
         type="button"
@@ -48,6 +47,7 @@ const onSubmit = handleSubmit(
         class="stepButton"
         @click="changeStep(currentStep - 1)"
         :disabled="currentStep === 1"
+        v-show="currentStep !== 1"
       />
       <BaseButton
         value="Next"
@@ -120,11 +120,15 @@ const onSubmit = handleSubmit(
   align-items: center;
   gap: 12px;
   width: 100%;
+
+  &.firstStep {
+    justify-content: flex-end;
+  }
 }
 
 .stepButton,
 .submitButton {
   width: 100%;
-  max-width: 300px;
+  max-width: 125px;
 }
 </style>
