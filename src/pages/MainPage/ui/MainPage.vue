@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { useUserProfileQuery } from '@/features/user';
-import { BaseButton, WidgetSkeleton } from '@/shared/ui';
+import { AnimatedWrapper } from '@/shared/ui';
 
 const { data } = useUserProfileQuery();
 console.log(data);
@@ -8,27 +8,17 @@ console.log(data);
 
 <template>
   <div class="mainPage">
-    <WidgetSkeleton theme="Blue">
-      <template #title>Fitness Lab</template>
-      <template #content>
-        <ul>
-          <li>1</li>
-          <li>2</li>
-          <li>3</li>
-        </ul>
-      </template>
-      <template #footer>
-        <BaseButton value="Open" theme="secondary" />
-      </template>
-    </WidgetSkeleton>
+    <AnimatedWrapper theme="Blue">
+      <div>Fitness Lab</div>
+    </AnimatedWrapper>
 
-    <WidgetSkeleton theme="Gold">
-      <template #title>FinTech App</template>
-    </WidgetSkeleton>
+    <AnimatedWrapper theme="Gold">
+      <div>FinTech App</div>
+    </AnimatedWrapper>
 
-    <WidgetSkeleton theme="Red">
-      <template #title>Task Manager</template>
-    </WidgetSkeleton>
+    <AnimatedWrapper theme="Red">
+      <div>Task Manager</div>
+    </AnimatedWrapper>
   </div>
 </template>
 

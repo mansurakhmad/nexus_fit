@@ -3,35 +3,25 @@ import { useAnimationRules } from '../composables';
 
 import type { WidgetContainerTypes } from '../models';
 
-const { theme = 'Gold' } = defineProps<WidgetContainerTypes.Props>();
+const { theme = 'Gold', contentClass = '' } = defineProps<WidgetContainerTypes.Props>();
 
 const linesRefs = useAnimationRules();
 </script>
 
 <template>
-  <div class="widgetSkeleton" :class="`widgetTheme${theme}`">
+  <div class="animatedWrapper" :class="`widgetTheme${theme}`">
     <div class="line left" :ref="linesRefs.leftLine" />
     <div class="line top" :ref="linesRefs.topLine" />
     <div class="line right" :ref="linesRefs.rightLine" />
     <div class="line bottom" :ref="linesRefs.bottomLine" />
-    <div class="content">
-      <div class="header">
-        <p class="title">
-          <slot name="title" />
-        </p>
-      </div>
-      <div class="body">
-        <slot name="content" />
-      </div>
-      <div class="footer">
-        <slot name="footer" />
-      </div>
+    <div class="content" :class="contentClass">
+      <slot></slot>
     </div>
   </div>
 </template>
 
 <style lang="scss" scoped>
-.widgetSkeleton {
+.animatedWrapper {
   position: relative;
   padding: 24px 24px 28px;
   min-height: 150px;
