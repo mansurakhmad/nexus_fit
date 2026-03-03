@@ -1,2 +1,2 @@
 export * from './getUserRequest';
-export * from './sendUpdateUserProfileRequest';
+export * from './sendUpdateUserRequest';

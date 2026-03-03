@@ -1,3 +1,5 @@
+import { computed } from 'vue';
+
 import { useQuery } from '@tanstack/vue-query';
 
 import { useAuthStore } from './useAuthStore';
@@ -7,9 +9,9 @@ export const useUserProfileQuery = () => {
   const authStore = useAuthStore();
 
   return useQuery({
-    queryKey: ['userProfile', authStore.user?.id],
+    queryKey: computed(() => ['userProfile', authStore.user?.id]),
     queryFn: getUserRequest,
-    enabled: !!authStore.user?.id,
+    enabled: computed(() => !!authStore.user?.id),
     staleTime: Infinity,
   });
 };

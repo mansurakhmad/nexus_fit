@@ -5,16 +5,21 @@ import { VueQueryDevtools } from '@tanstack/vue-query-devtools';
 import { RouterView, useRoute } from 'vue-router';
 
 import { useRequestState } from '@/features/requestState';
+import { useAuthStore } from '@/features/user';
 import planet from '@/shared/assets/plannet.svg';
 import BaseAlert from '@/shared/ui/BaseAlert/ui/BaseAlert.vue';
 import { GlobalLoader } from '@/shared/ui/GlobalLoader';
 import { ContentContainer } from '@/widgets/ContentContainer';
 import { HeaderApp } from '@/widgets/HeaderApp';
 
+const authStore = useAuthStore();
+
 const route = useRoute();
 const { showLoader } = useRequestState();
 
 const isOnboardingRoute = computed(() => route.meta.isOnboarding);
+
+authStore.init();
 </script>
 
 <template>

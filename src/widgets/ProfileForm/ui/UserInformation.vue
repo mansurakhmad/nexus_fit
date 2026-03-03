@@ -27,7 +27,7 @@ const usernameField = useField<string>('username');
 :deep(.step) {
   display: flex;
   flex-direction: column;
-  gap: 24px;
+  gap: 32px;
   padding-bottom: 16px;
 }
 </style>

@@ -3,13 +3,11 @@ import ContactInformation from './ContactInformation.vue';
 import PersonalInformation from './PersonalInformation.vue';
 import UserInformation from './UserInformation.vue';
 
-import { useProfileForm, useUpdateProfileMutation, useUserProfileQuery } from '@/features/user';
+import { useProfileForm, useUpdateUserMutation } from '@/features/user';
 import { BaseButton } from '@/shared/ui';
-const { data } = useUserProfileQuery();
-console.log('profile on Profile Page', data);
 
 const { handleSubmit, handleFormValid, steps, changeStep, currentStep } = useProfileForm();
-const { mutate } = useUpdateProfileMutation();
+const { mutate } = useUpdateUserMutation();
 
 const onSubmit = handleSubmit(
   values => mutate(values),

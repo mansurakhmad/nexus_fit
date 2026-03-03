@@ -1,19 +1,17 @@
 <script lang="ts" setup>
 import { ref } from 'vue';
 
-import { storeToRefs } from 'pinia';
 import { Popover } from 'primevue';
 import { useRouter } from 'vue-router';
 
 import { useLogout } from '@/features/logout';
-import { useAuthStore } from '@/features/user';
+import { useUserProfileQuery } from '@/features/user';
 import { APP_ROUTERS_NAMES, APP_ROUTES } from '@/shared/config';
 import { BaseButton } from '@/shared/ui';
 
 const router = useRouter();
 const { logout } = useLogout();
-const authStore = useAuthStore();
-const { user } = storeToRefs(authStore);
+const { data } = useUserProfileQuery();
 const op = ref<InstanceType<typeof Popover> | null>(null);
 
 const togglePopoverState = (event: PointerEvent) => {
@@ -27,12 +25,24 @@ const goToProfilePage = () => {
 
   router.push(APP_ROUTES.PROFILE);
 };
+
+const getName = () => {
+  if (!data.value) return '';
+
+  if (data.value.profileData.username) return data.value.profileData.username;
+
+  if (data.value.profileData.first_name && data.value.profileData.last_name) {
+    return `${data.value.profileData.first_name} ${data.value.profileData.last_name}`;
+  }
+
+  return data.value.email;
+};
 </script>
 
 <template>
   <Transition name="fade" appear>
-    <div class="userControl" v-if="user && !$route.meta.isOnboarding">
-      <BaseButton :value="`Hi, ${user.email}`" theme="outlineCyan" @click="togglePopoverState" />
+    <div class="userControl" v-if="data && !$route.meta.isOnboarding">
+      <BaseButton :value="`Hi, ${getName()}`" theme="outlineCyan" @click="togglePopoverState" />
     </div>
   </Transition>
   <Popover ref="op" :close-on-escape="true">

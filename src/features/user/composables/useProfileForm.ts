@@ -1,11 +1,13 @@
-import { ref } from 'vue';
+import { ref, watch } from 'vue';
 
 import { toTypedSchema } from '@vee-validate/zod';
 import { useForm } from 'vee-validate';
 
 import { zodSchema, type ProfileForm } from '../models';
+import { useUserProfileQuery } from './useUserProfileQuery';
 
 export const useProfileForm = () => {
+  const { data } = useUserProfileQuery();
   const steps = ref<ProfileForm.Step[]>([
     {
       title: 'Personal Information',
@@ -46,10 +48,28 @@ export const useProfileForm = () => {
     else currentStep.value = step;
   };
 
-  const { handleSubmit, values, errors } = useForm({
+  const { handleSubmit, values, errors, resetForm } = useForm({
     validationSchema,
     validateOnMount: false,
   });
+
+  watch(
+    data,
+    () => {
+      resetForm({
+        values: {
+          firstName: data.value?.profileData.first_name || '',
+          lastName: data.value?.profileData.last_name || '',
+          email: data.value?.email || '',
+          gender: data.value?.profileData.gender || '',
+          username: data.value?.profileData.username || '',
+          phoneCode: data.value?.profileData.phone_code || undefined,
+          phoneNumber: data.value?.profileData.phone_number || undefined,
+        },
+      });
+    },
+    { immediate: true }
+  );
 
   const handleFormValid = () => {
     if (!errors.value) return true;

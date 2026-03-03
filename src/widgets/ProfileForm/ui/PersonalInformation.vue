@@ -59,7 +59,7 @@ const { value: gender } = useField<string>('gender');
 :deep(.step) {
   display: flex;
   flex-direction: column;
-  gap: 24px;
+  gap: 32px;
   padding-bottom: 16px;
 }
 
