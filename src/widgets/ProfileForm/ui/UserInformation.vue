@@ -3,9 +3,10 @@ import { useField } from 'vee-validate';
 
 import FormSectionTitle from './FormSectionTitle.vue';
 
+import { ProfileForm } from '@/features/user';
 import { BaseInput, AnimatedWrapper } from '@/shared/ui';
 
-const usernameField = useField<string>('username');
+const usernameField = useField<string>(ProfileForm.Fields.USERNAME);
 </script>
 
 <template>

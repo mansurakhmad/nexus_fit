@@ -4,10 +4,10 @@ import { useField } from 'vee-validate';
 import FormSectionTitle from './FormSectionTitle.vue';
 import PhoneInput from './PhoneInput.vue';
 
-import { AnimatedWrapper } from '@/shared/ui';
-import BaseInput from '@/shared/ui/BaseInput/ui/BaseInput.vue';
+import { ProfileForm } from '@/features/user';
+import { AnimatedWrapper, BaseInput } from '@/shared/ui';
 
-const emailField = useField<string>('email');
+const emailField = useField<string>(ProfileForm.Fields.EMAIL);
 </script>
 
 <template>

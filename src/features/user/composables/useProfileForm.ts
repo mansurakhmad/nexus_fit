@@ -3,7 +3,7 @@ import { ref, watch } from 'vue';
 import { toTypedSchema } from '@vee-validate/zod';
 import { useForm } from 'vee-validate';
 
-import { zodSchema, type ProfileForm } from '../models';
+import { ProfileForm, zodSchema } from '../models';
 import { useUserProfileQuery } from './useUserProfileQuery';
 
 export const useProfileForm = () => {
@@ -13,21 +13,30 @@ export const useProfileForm = () => {
       title: 'Personal Information',
       key: 'p_inf',
       id: 1,
-      fields: ['firstName', 'lastName', 'birthday', 'gender'],
+      fields: [
+        ProfileForm.Fields.FIRST_NAME,
+        ProfileForm.Fields.LAST_NAME,
+        ProfileForm.Fields.BIRTHDAY,
+        ProfileForm.Fields.GENDER,
+      ],
       hasErrors: false,
     },
     {
       title: 'Contact Information',
       key: 'c_inf',
       id: 2,
-      fields: ['email', 'phoneCode', 'phoneNumber'],
+      fields: [
+        ProfileForm.Fields.EMAIL,
+        ProfileForm.Fields.PHONE_CODE,
+        ProfileForm.Fields.PHONE_NUMBER,
+      ],
       hasErrors: false,
     },
     {
       title: 'App information',
       key: 'a_inf',
       id: 3,
-      fields: ['username'],
+      fields: [ProfileForm.Fields.USERNAME],
       hasErrors: false,
     },
   ]);
