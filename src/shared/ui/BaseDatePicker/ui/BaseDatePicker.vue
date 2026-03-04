@@ -6,10 +6,11 @@ import type { BaseDatePickerTypes } from '../models';
 
 import { ErrorMessage } from '@/shared/ui/ErrorMessage';
 
-const { dateFormat, name, placeholder, onlyPast } = defineProps<BaseDatePickerTypes.Props>();
+const { dateFormat, name, placeholder, onlyPast, maxDate } =
+  defineProps<BaseDatePickerTypes.Props>();
 const datepicker = useField<Date>('birthday');
 
-const maxDate = onlyPast ? new Date() : undefined;
+const maxDateValue = onlyPast ? maxDate || new Date() : undefined;
 </script>
 
 <template>
@@ -19,7 +20,7 @@ const maxDate = onlyPast ? new Date() : undefined;
       :dateFormat="dateFormat"
       :placeholder="placeholder"
       :name="name"
-      :maxDate="maxDate"
+      :maxDate="maxDateValue"
       fluid
     />
     <ErrorMessage

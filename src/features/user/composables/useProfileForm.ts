@@ -7,7 +7,7 @@ import { zodSchema, type ProfileForm } from '../models';
 import { useUserProfileQuery } from './useUserProfileQuery';
 
 export const useProfileForm = () => {
-  const { data } = useUserProfileQuery();
+  const { data: savedProfileData } = useUserProfileQuery();
   const steps = ref<ProfileForm.Step[]>([
     {
       title: 'Personal Information',
@@ -54,17 +54,20 @@ export const useProfileForm = () => {
   });
 
   watch(
-    data,
+    savedProfileData,
     () => {
       resetForm({
         values: {
-          firstName: data.value?.profileData.first_name || '',
-          lastName: data.value?.profileData.last_name || '',
-          email: data.value?.email || '',
-          gender: data.value?.profileData.gender || '',
-          username: data.value?.profileData.username || '',
-          phoneCode: data.value?.profileData.phone_code || undefined,
-          phoneNumber: data.value?.profileData.phone_number || undefined,
+          firstName: savedProfileData.value?.profileData.first_name || '',
+          lastName: savedProfileData.value?.profileData.last_name || '',
+          email: savedProfileData.value?.email || '',
+          gender: savedProfileData.value?.profileData.gender || '',
+          username: savedProfileData.value?.profileData.username || '',
+          phoneCode: savedProfileData.value?.profileData.phone_code || undefined,
+          phoneNumber: savedProfileData.value?.profileData.phone_number || undefined,
+          birthday: savedProfileData.value?.profileData.birthday
+            ? new Date(savedProfileData.value?.profileData.birthday)
+            : undefined,
         },
       });
     },

@@ -4,5 +4,6 @@ export namespace BaseDatePickerTypes {
     placeholder: string;
     name?: string;
     onlyPast?: boolean;
+    maxDate?: Date;
   }
 }

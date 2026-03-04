@@ -5,7 +5,7 @@ export namespace User {
   export type Gender = 'XY' | 'XX';
 
   export type ProfileData = Nullable<{
-    birthday: number;
+    birthday: Date;
     created_at: string;
     email: string;
     first_name: string;

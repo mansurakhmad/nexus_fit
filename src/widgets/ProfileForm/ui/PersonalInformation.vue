@@ -39,6 +39,7 @@ const { value: gender } = useField<string>('gender');
         placeholder="Enter your birthday *"
         dateFormat="dd.mm.yy"
         :onlyPast="true"
+        :maxDate="new Date('2020-01-01')"
       />
       <Select
         v-model="gender"

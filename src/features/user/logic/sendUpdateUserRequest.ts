@@ -13,7 +13,7 @@ export const sendUpdateUserRequest = async (formValues: ProfileForm.FormValues) 
 
   if (authError) throw authError;
 
-  if (!authData.user) throw new Error('authData: User not found');
+  if (!authData.user) throw new Error('User not found');
 
   const { error: profileError } = await api
     .from('profiles')
@@ -24,6 +24,7 @@ export const sendUpdateUserRequest = async (formValues: ProfileForm.FormValues) 
       username: formValues.username,
       phone_code: formValues.phoneCode,
       phone_number: formValues.phoneNumber,
+      birthday: formValues.birthday,
     })
     .eq('id', authData.user.id);
 
